@@ -8,17 +8,62 @@ import * as echarts from 'echarts';
 
 const chartDom = ref(null);
 let chartInstance = null;
-let testData = ["类别1", "类别2", "类别3", "类别4", "类别5"]
+
+let prepareOptionDay = {
+    title: {
+      text: ''
+    },
+    tooltip: {}, 
+    xAxis: {
+      data: ["类别1", "类别2", "类别3", "类别4", "类别5"]
+    },
+    yAxis: {},
+    series: [{
+      name: '金额|以日为单位',
+      type: 'bar',
+      data: [120, 200, 150, 80, 70]
+    }]
+}
+
+let prepareOptionMonth = {
+    title: {
+      text: ''
+    },
+    tooltip: {}, 
+    xAxis: {
+      data: ["类别1", "类别2", "类别3", "类别4", "类别5"]
+    },
+    yAxis: {},
+    series: [{
+      name: '金额|以月为单位',
+      type: 'bar',
+      data: [120, 200, 150, 80, 70]
+    }]
+}
+
+const changeMode = (mode) => {
+  if (!chartInstance){
+    return
+  }
+  if (mode == "month"){
+    chartInstance.setOption(prepareOptionMonth)
+  }else{
+    chartInstance.setOption(prepareOptionDay)
+  }
+}
 
 const props = defineProps({
   urlParams:Array
 })
 
-//传递请求参数
-console.log(props.urlParams)
+defineExpose({
+  changeMode,
+})
 
 onMounted(async () => {
   await nextTick();
+  //第一次初始化时
+  //console.log(props.urlParams)
   chartInstance = echarts.init(chartDom.value);
   const option = {
     title: {
@@ -26,7 +71,7 @@ onMounted(async () => {
     },
     tooltip: {}, 
     xAxis: {
-      data: testData
+      data: ["类别1", "类别2", "类别3", "类别4", "类别5"]
     },
     yAxis: {},
     series: [{

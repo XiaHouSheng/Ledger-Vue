@@ -66,10 +66,64 @@ function onItemDelete(item,index){
   console.log(item,index)
   testData.value.splice(index,1)
 }
+
+function onDeviceAddBtnClick(){
+
+}
+
+let inputDeviceName = ""
+let inputTopicName = ""
+let sensor1 = {
+  name:"",
+  type:""
+}
+let sensor2 = {
+  name:"",
+  type:""
+}
+let sensor3 = {
+  name:"",
+  type:""
+}
+
 </script>
 
 <template>
 <div class="container">
+  <div class="modal fade" id="modal-add-device">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+                <h5 class="modal-title">添加设备</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input v-model="inputDeviceName" class="form-control" placeholder="Device Name">
+            <div style="height: 12px;"></div>
+            <input v-model="inputTopicName" class="form-control" placeholder="Topic Name">
+            <div style="height: 6px;border-bottom: solid 1px black;"></div>
+            <div class="d-flex flex-row" style="gap: 6px;margin-top: 6px">
+              <div class="d-flex flex-column" style="gap: 6px;">
+                <input v-model="sensor1.name" class="form-control" placeholder="name">
+                <input v-model="sensor1.type" class="form-control" placeholder="type">
+              </div>
+              <div class="d-flex flex-column" style="gap: 6px;">
+                <input v-model="sensor2.name" class="form-control" placeholder="name">
+                <input v-model="sensor2.type" class="form-control" placeholder="type">
+              </div>
+              <div class="d-flex flex-column" style="gap: 6px;">
+                <input v-model="sensor3.name" class="form-control" placeholder="name">
+                <input v-model="sensor3.type" class="form-control" placeholder="type">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button @click="onDeviceAddBtnClick" type="button" class="btn btn-primary" data-bs-dismiss="modal">Commit</button>
+          </div>
+      </div>
+    </div>
+  </div>
     <div class="row">
         <div class="col-3 d-flex flex-column">
             <div class="device-list-cont flex-grow-1 t-border">
@@ -78,7 +132,7 @@ function onItemDelete(item,index){
                 </ul>
             </div>
             <div class="input-device-cont t-height-s">
-              <button class="btn t-border">Add Device</button>
+              <button class="btn t-border" data-bs-toggle="modal" data-bs-target="#modal-add-device">Add Device</button>
             </div>
         </div>
         <div class="col-9">
@@ -110,10 +164,10 @@ function onItemDelete(item,index){
   overflow: scroll;
   overflow-x: hidden;
 } 
-button:hover{
+.input-device-cont button:hover{
   background-color: rgba(0, 0, 0, 0.20);
 }
-button{
+.input-device-cont button{
   width: 100%;
   height: 100%;
 }

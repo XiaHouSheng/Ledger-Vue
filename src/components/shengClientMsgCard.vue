@@ -8,7 +8,6 @@ defineExpose({
 const props = defineProps({
     mqttMsgObj:Object,
 })
-console.log(props)
 </script>
 
 <template>
